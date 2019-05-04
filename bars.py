@@ -1,6 +1,8 @@
 import json
 from yandex_geocoder import Client
 from geopy import distance
+import folium
+
 
 def coords_swap(coords):
     coords[1], coords[0] = coords[0], coords[1]
@@ -42,7 +44,12 @@ def main():
         bardata.append({'title':title, 'latitude':latitude, 'longitude':longitude, 'distance':bar_distance})
 
 
-    print(min(bardata, key=get_bar_distance))
+    print(min(bardata, key=get_bar_distance)['title'])
+
+    sorted_bars =  sorted(bardata, key=get_bar_distance)
+
+    for item in sorted_bars[:5]:
+        print(item['title'])
 
 if __name__ == "__main__":
     main()
